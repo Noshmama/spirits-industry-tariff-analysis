@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The U.S. Spirits Industry After the Tariff Ruling: RTDs, Premiumization, and the Great Moderation &mdash; February 2026</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --spirits-dark: #3B1F0B;
+            --spirits-mid: #7A4420;
+            --spirits-light: #A0622D;
+            --spirits-blush: #F8F0E8;
+            --gold: #C9A84C;
+            --gold-light: #F0E4C1;
+            --text: #2c2c2c;
+            --text-light: #5a5a5a;
+            --bg: #FAF8F5;
+            --white: #ffffff;
+            --border: #e5e0db;
+            --green: #2d8a4e;
+            --red: #c0392b;
+            --amber: #D4A017;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .hero {
+            position: relative;
+            color: var(--white);
+            padding: 80px 40px 60px;
+            text-align: center;
+            background: linear-gradient(135deg, #1a0f05 0%, var(--spirits-dark) 40%, #5C3317 100%);
+            min-height: 360px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 30% 40%, rgba(201,168,76,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(160,98,45,0.15) 0%, transparent 50%);
+        }
+        .hero > * {
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2.6em;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            color: #ffdd44;
+            text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+            transform: rotate(-1.5deg);
+        }
+        .hero .subtitle {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.6em;
+            font-style: normal;
+            opacity: 1;
+            margin-bottom: 8px;
+            letter-spacing: 1.5px;
+            line-height: 1.3;
+            text-transform: uppercase;
+            color: #ffdd44;
+            text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+            transform: rotate(-1.5deg);
+        }
+        .hero .date {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.05em;
+            opacity: 0.9;
+            color: #ffdd44;
+            text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Executive Summary */
+        .exec-summary {
+            background: var(--white);
+            border-left: 4px solid var(--gold);
+            padding: 32px 36px;
+            margin: 48px auto;
+            max-width: 900px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border-radius: 0 8px 8px 0;
+        }
+        .exec-summary h2 {
+            font-size: 1.5em;
+            color: var(--spirits-dark);
+            margin-bottom: 16px;
+        }
+        .exec-summary p {
+            margin-bottom: 14px;
+            font-size: 1.02em;
+        }
+
+        /* Key stats banner */
+        .stats-banner {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 40px auto;
+            max-width: 900px;
+            padding: 0 32px;
+        }
+        .stat-card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 24px 16px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-top: 3px solid var(--spirits-mid);
+        }
+        .stat-card .number {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--spirits-dark);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        .stat-card .number.negative { color: var(--red); }
+        .stat-card .number.positive { color: var(--green); }
+        .stat-card .label {
+            font-size: 0.82em;
+            color: var(--text-light);
+            margin-top: 6px;
+            line-height: 1.4;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* TOC */
+        .toc {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 28px 36px;
+            margin: 40px auto;
+            max-width: 900px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .toc h3 {
+            font-size: 1.1em;
+            color: var(--spirits-dark);
+            margin-bottom: 14px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        .toc ol {
+            padding-left: 20px;
+        }
+        .toc li {
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+        .toc a {
+            color: var(--spirits-mid);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .toc a:hover { border-bottom-color: var(--spirits-mid); }
+
+        /* Sections */
+        section {
+            margin: 56px auto;
+            max-width: 900px;
+            padding: 0 32px;
+        }
+        section h2 {
+            font-size: 1.7em;
+            color: var(--spirits-dark);
+            margin-bottom: 8px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+        }
+        section h2 .section-num {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.55em;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+        section h3 {
+            font-size: 1.2em;
+            color: var(--spirits-mid);
+            margin: 28px 0 12px;
+        }
+        section p {
+            margin-bottom: 16px;
+            font-size: 1.02em;
+        }
+        section ul, section ol {
+            margin: 0 0 18px 24px;
+        }
+        section li {
+            margin-bottom: 8px;
+            font-size: 0.98em;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 28px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.92em;
+        }
+        thead th {
+            background: var(--spirits-dark);
+            color: var(--white);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+        }
+        tbody td {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        tbody tr:nth-child(even) { background: var(--spirits-blush); }
+        tbody tr:hover { background: var(--gold-light); }
+        td strong { color: var(--spirits-dark); }
+
+        /* Callout boxes */
+        .callout {
+            background: var(--spirits-blush);
+            border-left: 4px solid var(--spirits-mid);
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-radius: 0 6px 6px 0;
+            font-style: italic;
+        }
+        .callout.scotus {
+            background: #eef6ee;
+            border-left-color: var(--green);
+        }
+        .callout.warning {
+            background: #fdf2f0;
+            border-left-color: var(--red);
+        }
+        .callout .attribution {
+            display: block;
+            margin-top: 8px;
+            font-style: normal;
+            font-size: 0.88em;
+            color: var(--text-light);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* Chart containers */
+        .chart-section {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 32px;
+            margin: 36px 0;
+            box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+        }
+        .chart-section h4 {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 1.1em;
+            color: var(--spirits-dark);
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+        .chart-section .chart-subtitle {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.88em;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+        .chart-wrapper {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .chart-insight {
+            background: var(--gold-light);
+            padding: 14px 18px;
+            border-radius: 6px;
+            margin-top: 16px;
+            font-size: 0.9em;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.5;
+        }
+        .chart-insight strong { color: var(--spirits-dark); }
+
+        /* Sources */
+        .sources {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 28px 36px;
+            margin: 56px auto;
+            max-width: 900px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .sources h3 {
+            font-size: 1.1em;
+            color: var(--spirits-dark);
+            margin-bottom: 14px;
+        }
+        .sources ul {
+            list-style: none;
+            padding: 0;
+            columns: 1;
+        }
+        .sources li {
+            margin-bottom: 6px;
+            font-size: 0.85em;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            padding-left: 16px;
+            position: relative;
+        }
+        .sources li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+        .sources a {
+            color: var(--spirits-mid);
+            text-decoration: none;
+        }
+        .sources a:hover { text-decoration: underline; }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 0.85em;
+            color: var(--text-light);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8em; }
+            .hero .subtitle { font-size: 1.2em; }
+            .stats-banner {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0 16px;
+            }
+            section, .exec-summary, .toc, .sources { padding-left: 16px; padding-right: 16px; }
+            .hero { padding: 48px 20px 40px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="hero">
+    <h1>The U.S. Spirits Industry After the Tariff Ruling</h1>
+    <div class="subtitle">RTDs, Premiumization, and the Great Moderation<br>Are Reshaping a $36.4 Billion Market</div>
+    <div class="date">February 21, 2026</div>
+</header>
+
+<!-- Key Stats -->
+<div class="stats-banner">
+    <div class="stat-card">
+        <div class="number">$36.4B</div>
+        <div class="label">U.S. spirits supplier revenue<br>2025 (<span style="color:var(--red)">-2.2%</span>)</div>
+    </div>
+    <div class="stat-card">
+        <div class="number">42.4%</div>
+        <div class="label">Spirits share of total<br>beverage alcohol revenue</div>
+    </div>
+    <div class="stat-card">
+        <div class="number positive">$3.8B</div>
+        <div class="label">Spirits RTD revenue<br>(<span style="color:var(--green)">+16.4%</span>)</div>
+    </div>
+    <div class="stat-card">
+        <div class="number">6&ndash;3</div>
+        <div class="label">SCOTUS ruling striking<br>down IEEPA tariffs</div>
+    </div>
+</div>
+
+<!-- Executive Summary -->
+<div class="exec-summary container">
+    <h2>Executive Summary</h2>
+    <p>The defining paradox of the U.S. spirits industry in 2025: <strong>Americans drank more spirits but spent less doing it.</strong> Volume rose 1.9% to 318.1 million cases while supplier revenue fell 2.2% to $36.4 billion &mdash; a clear and unmistakable trading-down signal after years of premiumization-driven growth. For the first time in a generation, the spirits industry's growth engine has stalled.</p>
+    <p>And yet one segment is rewriting the rules. <strong>Spirits-based RTDs (ready-to-drink cocktails) surged 16.4% to $3.8 billion</strong>, nearly quadrupling in volume over five years from 23.5 million cases to 85.6 million. RTDs are not a sideshow &mdash; they are cannibalizing malt-based hard seltzers, stealing occasions from beer, and becoming the default entry point for a generation that drinks less but demands convenience.</p>
+    <p>On <strong>February 20, 2026</strong>, the U.S. Supreme Court ruled 6&ndash;3 that the president cannot unilaterally impose tariffs under IEEPA, striking down the sweeping duties that had disrupted spirits trade for the past year. For bourbon producers who watched a <strong>50% EU tariff</strong> threaten their fastest-growing export market, and for Scotch and Cognac importers absorbing 15&ndash;20% surcharges, the ruling provides critical &mdash; if fragile &mdash; relief.</p>
+    <p>Meanwhile, the moderation movement is structural, not cyclical. Gen Z drinks <strong>20% less per capita</strong> than prior generations. Cannabis beverages are growing at <strong>16.9% CAGR</strong>. Nearly half of all Americans planned to drink less in 2025. The spirits industry still commands <strong>42.4% of total beverage alcohol revenue</strong> &mdash; market share leadership for a fourth consecutive year &mdash; but defending that position requires a fundamentally different playbook.</p>
+    <p>This report examines the forces reshaping the spirits business and identifies the strategies that will define winners and losers in a market that is getting more moderate, more fragmented, and more competitive every year.</p>
+</div>
+
+<!-- Table of Contents -->
+<div class="toc container">
+    <h3>Contents</h3>
+    <ol>
+        <li><a href="#market">The Market: Volume Up, Revenue Down &mdash; The Great Trading Down</a></li>
+        <li><a href="#tariffs">The Tariff Storm &mdash; and the Supreme Court Earthquake</a></li>
+        <li><a href="#categories">Category Performance: Winners, Losers, and the RTD Revolution</a></li>
+        <li><a href="#consumers">Consumer Trends: Moderation, Gen Z, and Cannabis</a></li>
+        <li><a href="#opportunities">Opportunities in a Shifting Market</a></li>
+        <li><a href="#outlook">Outlook</a></li>
+    </ol>
+</div>
+
+<!-- Section 1 -->
+<section id="market">
+    <h2><span class="section-num">Section 1</span>The Market: Volume Up, Revenue Down &mdash; The Great Trading Down</h2>
+
+    <p>The headline numbers from the <strong>DISCUS Annual Economic Briefing</strong>, released in February 2026:</p>
+
+    <table>
+        <thead><tr><th>Metric</th><th>2024</th><th>2025</th><th>YoY Change</th></tr></thead>
+        <tbody>
+            <tr><td>Total U.S. spirits supplier revenue</td><td>~$37.2B</td><td>$36.4B</td><td><strong style="color:var(--red)">-2.2%</strong></td></tr>
+            <tr><td>Total volume (9L cases)</td><td>~312M</td><td>318.1M</td><td><strong style="color:var(--green)">+1.9%</strong></td></tr>
+            <tr><td>Spirits share of bev-alc revenue</td><td>~42%</td><td>42.4%</td><td>4th year as market leader</td></tr>
+        </tbody>
+    </table>
+
+    <p>This marks the <strong>second consecutive year of revenue decline</strong> following the pandemic-era boom that peaked near $37.6 billion in 2023. But unlike wine, which is losing both volume and value, spirits face a more nuanced challenge: <strong>consumption is growing while consumers trade down</strong> from premium and super-premium bottles to value tiers and RTDs.</p>
+
+    <p>The volume-revenue divergence tells the story of a market in transition:</p>
+    <ul>
+        <li><strong>Volume +1.9%</strong> &mdash; Americans are drinking more spirits (or at least more spirits-based products, driven heavily by RTDs)</li>
+        <li><strong>Revenue -2.2%</strong> &mdash; but paying less per serving, reversing years of premiumization gains</li>
+        <li><strong>RTDs alone accounted for 85.6 million cases</strong> &mdash; nearly 27% of total spirits volume, up from under 8% five years ago</li>
+    </ul>
+
+    <div class="callout">
+        "Cheaper tequila and canned cocktails were the only bright spots for booze during a rough 2025."
+        <span class="attribution">&mdash; CNBC, February 5, 2026</span>
+    </div>
+
+    <h3>Spirits vs. Wine vs. Beer: Market Share</h3>
+    <p>Spirits have gained approximately <strong>10 percentage points</strong> of total beverage alcohol share over the past decade, almost entirely at beer's expense. Wine's share is declining in volume but holding more stable in dollar terms due to its own premiumization dynamics.</p>
+
+    <!-- CHART 1: Market Share -->
+    <div class="chart-section">
+        <h4>Beverage Alcohol Revenue Share (2025)</h4>
+        <div class="chart-subtitle">Spirits have led for four consecutive years</div>
+        <div class="chart-wrapper" style="max-width:400px;">
+            <canvas id="shareChart"></canvas>
+        </div>
+        <div class="chart-insight">
+            <strong>Key insight:</strong> Some reporting suggests 2025 may be the year spirits formally surpassed beer in revenue for the first time &mdash; though this partly reflects RTD reclassification effects. Regardless, spirits' share trajectory is unmistakable.
+        </div>
+    </div>
+</section>
+
+<!-- Section 2 -->
+<section id="tariffs">
+    <h2><span class="section-num">Section 2</span>The Tariff Storm &mdash; and the Supreme Court Earthquake</h2>
+
+    <p>Trade policy has been the single most volatile factor in the spirits business for the past two years. The stakes for spirits are enormous: the U.S. exported a <strong>record $2.4+ billion in spirits in 2024</strong>, with the EU alone accounting for roughly half &mdash; including $699 million in American whiskey.</p>
+
+    <h3>2.1 The Escalation (2025)</h3>
+    <ol>
+        <li><strong>Early 2025:</strong> Broad U.S. trade tariffs triggered EU retaliation targeting American agricultural and beverage exports.</li>
+        <li><strong>March 2025:</strong> The EU announced a <strong>50% tariff on American whiskey</strong> as part of retaliatory duties on $28 billion in U.S. goods.</li>
+        <li><strong>March 2025:</strong> President Trump threatened <strong>200% tariffs</strong> on European wine, Champagne, and spirits.</li>
+        <li><strong>April 2025:</strong> Sweeping "reciprocal" tariffs announced under the International Emergency Economic Powers Act (IEEPA), ranging from 10% to 145% depending on the country.</li>
+        <li><strong>Mid-2025:</strong> IEEPA-based tariffs on European spirits imports settled at approximately <strong>15&ndash;20%</strong>.</li>
+        <li><strong>Mid-2025:</strong> China imposed a <strong>160% retaliatory tariff</strong>, effectively shutting off Cognac exports and broader spirits trade.</li>
+        <li><strong>Mid-2025:</strong> Canadian provincial liquor boards <strong>removed U.S. spirits from shelves</strong>, causing American whiskey exports to Canada to plummet 85%.</li>
+    </ol>
+
+    <h3>2.2 Impact on Spirits Exports</h3>
+    <table>
+        <thead><tr><th>Export Metric</th><th>2024</th><th>2025 (partial)</th><th>Change</th></tr></thead>
+        <tbody>
+            <tr><td>Total U.S. spirits exports</td><td>$2.4B+ (record)</td><td>Declining</td><td><strong style="color:var(--red)">-9% (Q2)</strong></td></tr>
+            <tr><td>American whiskey to EU</td><td>$699M</td><td>&mdash;</td><td>Threatened by 50% EU tariff</td></tr>
+            <tr><td>Exports to Canada</td><td>$221M</td><td>&mdash;</td><td><strong style="color:var(--red)">-85% (Q2)</strong></td></tr>
+            <tr><td>American whiskey to EU (2021&ndash;2024 growth)</td><td colspan="3">+59% ($439M &rarr; $699M)</td></tr>
+        </tbody>
+    </table>
+
+    <p>The historical precedent is instructive: during Trump's first term (2018&ndash;2021), EU/UK retaliatory tariffs caused total U.S. spirits exports to fall <strong>12%</strong> and American whiskey exports to fall <strong>18%</strong>. After the tariff suspension, producers recaptured most lost market share &mdash; but recovery took years.</p>
+
+    <h3>2.3 The Supreme Court Ruling &mdash; February 20, 2026</h3>
+
+    <div class="callout scotus">
+        On February 20, 2026, the U.S. Supreme Court ruled <strong>6&ndash;3</strong> in <em>Learning Resources, Inc. v. Trump</em> that <strong>"IEEPA does not authorize the President to impose tariffs."</strong> Chief Justice Roberts authored the majority opinion. The ruling invalidates all IEEPA-based tariffs on imports from the EU, China, Canada, Mexico, and other countries.
+    </div>
+
+    <p><strong>What was struck down:</strong></p>
+    <ul>
+        <li>All IEEPA-based "reciprocal" tariffs (10&ndash;145% on various countries)</li>
+        <li>The 15&ndash;20% duties on European spirits imports (Scotch, Cognac, Irish whiskey, etc.)</li>
+        <li>IEEPA tariffs on Mexican imports (affecting tequila/mezcal supply chains)</li>
+    </ul>
+
+    <p><strong>What remains in place:</strong></p>
+    <ul>
+        <li>The EU's <strong>50% retaliatory tariff on American whiskey</strong> (separate from IEEPA)</li>
+        <li>China's <strong>160% retaliatory tariff</strong> (separate from IEEPA)</li>
+        <li>A new <strong>10% temporary tariff</strong> signed the same day under Section 122 of the Trade Act of 1974, effective February 24 for 150 days, with an announced increase to 15%</li>
+        <li>$200+ billion in IEEPA duties already paid may be eligible for refund &mdash; but the Court did not rule on this</li>
+    </ul>
+
+    <h3>2.4 Industry Reaction</h3>
+
+    <div class="callout">
+        "Eliminating tariffs would provide much needed certainty for American spirits exporters while helping ease financial pressures on bars, restaurants and retailers."
+        <span class="attribution">&mdash; DISCUS, February 2026</span>
+    </div>
+
+    <div class="callout">
+        "Bourbon industry leaders say Supreme Court ruling provides needed certainty &mdash; tariffs have never helped the industry."
+        <span class="attribution">&mdash; WAVE3 Louisville, February 21, 2026</span>
+    </div>
+
+    <table>
+        <thead><tr><th>Factor</th><th>Before Ruling (Feb 19)</th><th>After Ruling (Feb 20)</th></tr></thead>
+        <tbody>
+            <tr><td>European spirits import tariffs (IEEPA)</td><td>15&ndash;20%</td><td><strong style="color:var(--green)">Struck down</strong></td></tr>
+            <tr><td>New baseline tariff</td><td>N/A</td><td>10% (Section 122, temporary)</td></tr>
+            <tr><td>EU retaliation on American whiskey</td><td>50%</td><td>Still in effect</td></tr>
+            <tr><td>China retaliation (Cognac &amp; spirits)</td><td>160%</td><td>Still in effect</td></tr>
+            <tr><td>Canada shelf removal</td><td>In effect (-85% exports)</td><td>Unclear</td></tr>
+            <tr><td>Importer refund potential</td><td>N/A</td><td>$200B+ industry-wide (unresolved)</td></tr>
+        </tbody>
+    </table>
+
+    <div class="callout warning">
+        The SCOTUS ruling eliminates the legal basis for IEEPA tariffs but does <strong>not</strong> eliminate retaliatory tariffs imposed by other countries. The EU's 50% tariff on American whiskey and China's 160% duty remain in force &mdash; and the administration has already invoked alternative legal authority to reimpose a 10% baseline tariff. Trade uncertainty is the new normal.
+    </div>
+</section>
+
+<!-- Section 3 -->
+<section id="categories">
+    <h2><span class="section-num">Section 3</span>Category Performance: Winners, Losers, and the RTD Revolution</h2>
+
+    <p>The 2025 DISCUS data reveals a spirits market with <strong>one clear winner and nine categories in decline</strong>. Every traditional spirit category lost revenue. The only growth came from RTDs.</p>
+
+    <!-- CHART 2: Category Performance -->
+    <div class="chart-section">
+        <h4>2025 Revenue Change by Category</h4>
+        <div class="chart-subtitle">Source: DISCUS Annual Economic Briefing 2026</div>
+        <div class="chart-wrapper" style="max-width:700px;">
+            <canvas id="categoryChart"></canvas>
+        </div>
+        <div class="chart-insight">
+            <strong>The RTD outlier:</strong> At +16.4%, spirits RTDs grew faster than every traditional category's decline. RTD volume (85.6M cases) now exceeds every individual category except vodka. The spirits industry's growth engine has shifted from premiumization to format innovation.
+        </div>
+    </div>
+
+    <h3>Major Category Deep Dives</h3>
+
+    <table>
+        <thead><tr><th>Category</th><th>2025 Revenue</th><th>Revenue Change</th><th>Volume Change</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Vodka</strong></td><td>$7.0B</td><td style="color:var(--red)">-3.0%</td><td style="color:var(--red)">-2.2%</td></tr>
+            <tr><td><strong>Tequila/Mezcal</strong></td><td>$6.4B</td><td style="color:var(--red)">-4.1%</td><td style="color:var(--red)">-0.3%</td></tr>
+            <tr><td><strong>American Whiskey</strong></td><td>$5.1B</td><td style="color:var(--red)">-0.9%</td><td style="color:var(--red)">-1.0%</td></tr>
+            <tr><td><strong>Spirits RTDs</strong></td><td>$3.8B</td><td style="color:var(--green)">+16.4%</td><td style="color:var(--green)">+17.1%</td></tr>
+            <tr><td><strong>Cordials/Liqueurs</strong></td><td>$2.7B</td><td style="color:var(--red)">-3.2%</td><td style="color:var(--red)">-2.7%</td></tr>
+            <tr><td><strong>Brandy/Cognac</strong></td><td>&mdash;</td><td style="color:var(--red)">-10.4%</td><td>&mdash;</td></tr>
+            <tr><td><strong>Rum</strong></td><td>&mdash;</td><td style="color:var(--red)">-8.0%</td><td>&mdash;</td></tr>
+            <tr><td><strong>Irish Whiskey</strong></td><td>&mdash;</td><td style="color:var(--red)">-7.2%</td><td>&mdash;</td></tr>
+            <tr><td><strong>Scotch</strong></td><td>&mdash;</td><td style="color:var(--red)">-6.2%</td><td>&mdash;</td></tr>
+            <tr><td><strong>Canadian Whisky</strong></td><td>&mdash;</td><td style="color:var(--red)">-6.2%</td><td>&mdash;</td></tr>
+            <tr><td><strong>Gin</strong></td><td>&mdash;</td><td style="color:var(--red)">-4.3%</td><td>&mdash;</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Vodka ($7.0 Billion): Still the King, but Structurally Vulnerable</h3>
+    <p>Vodka remains the largest spirits category by volume &mdash; Americans buy approximately <strong>2.25 times</strong> as much vodka as the second-best-selling spirit. But with no clear premiumization narrative and increasing RTD cannibalization, vodka's structural position is eroding. The category needs a reinvention story.</p>
+
+    <h3>Tequila/Mezcal ($6.4 Billion): The Bull Market Hits a Wall</h3>
+    <p>The defining spirit of the 2020&ndash;2023 boom is now in correction. Revenue fell 4.1% while volume slipped only 0.3%, confirming <strong>sharp consumer trading-down</strong> from super-premium to value 100% agave bottles. A <strong>$500+ million agave surplus</strong> is reducing raw material costs and enabling lower-priced entries. Celebrity brand saturation is contributing to consumer fatigue. The category is not dying &mdash; it is normalizing after years of unsustainable growth.</p>
+
+    <h3>American Whiskey ($5.1 Billion): The Most Resilient Traditional Category</h3>
+    <p>At just -0.9% revenue decline, American whiskey outperformed every other traditional category. Ultra-premium American whiskey was still growing approximately <strong>+6% in 2024</strong>. Bourbon's cultural identity, collectability, and export demand give it structural support that other categories lack. The main threat is trade policy: the EU's 50% retaliatory tariff and Canada's shelf removal threaten the $699 million European export business.</p>
+
+    <h3>Brandy/Cognac: The Tariff Casualty (-10.4%)</h3>
+    <p>The worst-performing traditional category, devastated by China's <strong>160% retaliatory tariff</strong> that effectively shut off a critical Cognac export market. Domestic brandy faces additional headwinds from the California wine industry's struggles.</p>
+
+    <h3>The RTD Revolution ($3.8 Billion, +16.4%)</h3>
+    <p>Spirits-based RTDs are the most important structural shift in the spirits industry:</p>
+    <ul>
+        <li><strong>Volume nearly quadrupled in five years:</strong> from 23.5M cases (2020) to 85.6M cases (2025)</li>
+        <li><strong>Gained 11 percentage points</strong> of market share within spirits in 2025 alone</li>
+        <li><strong>Malt-based hard seltzers lost 14 percentage points</strong> &mdash; the transfer is direct</li>
+        <li>RTDs now account for roughly <strong>27% of total spirits volume</strong></li>
+        <li>Global RTD market projected to reach <strong>$129.8 billion by 2035</strong> (11.5% CAGR)</li>
+    </ul>
+
+    <div class="callout">
+        RTDs are not a fad &mdash; they represent a generational shift in how spirits are consumed. They lower the barrier to entry (no bartending skill required), win on convenience (grab-and-go format), and meet consumers at their preferred price point ($2&ndash;4 per serving). The question for every major spirits company is no longer whether to invest in RTDs, but how fast.
+    </div>
+
+    <!-- CHART 3: RTD Growth -->
+    <div class="chart-section">
+        <h4>Spirits RTD Volume Growth (2020&ndash;2025)</h4>
+        <div class="chart-subtitle">Millions of 9-liter cases &mdash; a nearly 4x increase in five years</div>
+        <div class="chart-wrapper" style="max-width:600px;">
+            <canvas id="rtdChart"></canvas>
+        </div>
+        <div class="chart-insight">
+            <strong>The acceleration is steepening, not flattening.</strong> RTD volume grew 17.1% in 2025 vs. roughly 15% in 2024. The category is still in its growth phase, not maturation. Industry analyst projections for U.S. spirits-based RTDs suggest a <strong>22.6% CAGR through 2030</strong>.
+        </div>
+    </div>
+</section>
+
+<!-- Section 4 -->
+<section id="consumers">
+    <h2><span class="section-num">Section 4</span>Consumer Trends: Moderation, Gen Z, and Cannabis</h2>
+
+    <p>The demand-side story of the spirits industry is being rewritten by three converging forces: generational moderation, the "sober-curious" movement, and cannabis competition.</p>
+
+    <h3>4.1 Gen Z: The Generation of Moderation</h3>
+    <ul>
+        <li>Gen Z drinks approximately <strong>20% less alcohol per capita</strong> than Millennials or Boomers</li>
+        <li><strong>21.5%</strong> of Gen Z does not consume alcohol at all</li>
+        <li><strong>39%</strong> drink only occasionally</li>
+        <li><strong>65%</strong> planned to drink less in 2025</li>
+        <li>Abstention reasons: 34% cite mental health, 46% cite general lack of interest</li>
+    </ul>
+
+    <p>The picture is not uniformly bleak. <strong>When Gen Z does drink, spirits are their most popular choice</strong>, followed by beer and wine. RTDs (42.97%) and hard seltzers (36.25%) are particularly popular entry points. And IWSR reported in December 2025 that Gen Z interest in Dry January is actually fading &mdash; suggesting performative abstinence is giving way to organic moderation. Younger legal-drinking-age consumers are "re-engaging with alcohol," just on different terms.</p>
+
+    <div class="callout">
+        The threat is not that Gen Z will kill the spirits industry. It's that they will buy fewer, better drinks &mdash; and increasingly from a can rather than a bottle. The NielsenIQ insight is telling: most on-premise consumers now prefer to buy <strong>two premium drinks rather than four standard ones</strong>.
+        <span class="attribution">&mdash; NielsenIQ, Five Consumer Trends Shaping U.S. On-Premise Spirit Sales, 2026</span>
+    </div>
+
+    <h3>4.2 The Broader Moderation Movement</h3>
+    <ul>
+        <li>Nearly <strong>half of all Americans</strong> planned to drink less in 2025, up <strong>44% from 2023</strong></li>
+        <li><strong>81%</strong> of Millennials reported drinking in the last 6 months (Autumn 2025) &mdash; the <strong>lowest ever recorded</strong> for that cohort</li>
+        <li>The "less but better" dynamic benefits premium spirits but reduces total volume</li>
+    </ul>
+
+    <h3>4.3 Cannabis: The New Competitor</h3>
+    <p>Hemp-derived THC beverages &mdash; broadly legal across states &mdash; are entering the same convenience and grocery channels as spirits RTDs, directly competing for the same "moderate social beverage" occasion.</p>
+
+    <table>
+        <thead><tr><th>Metric</th><th>Figure</th></tr></thead>
+        <tbody>
+            <tr><td>Alcohol consumption, adults 21&ndash;35 (since 2020)</td><td><strong style="color:var(--red)">-12%</strong></td></tr>
+            <tr><td>Cannabis use, adults 21&ndash;35 (since 2020)</td><td><strong style="color:var(--green)">+18%</strong></td></tr>
+            <tr><td>U.S. cannabis beverage sales (projected 2028)</td><td>$2.8 billion (16.9% CAGR)</td></tr>
+            <tr><td>Total THC beverage market potential</td><td>$9.9&ndash;$14.9 billion</td></tr>
+            <tr><td>At-home alcohol CAGR through 2030</td><td>2.4%</td></tr>
+        </tbody>
+    </table>
+
+    <div class="callout warning">
+        Cannabis beverages are growing at <strong>16.9% CAGR</strong> while at-home alcohol grows at 2.4%. Among adults 21&ndash;35, alcohol consumption is down 12% since 2020 while cannabis use is up 18%. This is not a future threat &mdash; it is a present reality.
+    </div>
+</section>
+
+<!-- Section 5 -->
+<section id="opportunities">
+    <h2><span class="section-num">Section 5</span>Opportunities in a Shifting Market</h2>
+
+    <p>A declining-revenue market is not a dying market. The spirits industry's $36.4 billion in supplier revenue, 42.4% market share lead, and structural advantages over wine and beer create significant opportunities for strategically clear operators.</p>
+
+    <h3>5.1 The RTD Imperative</h3>
+    <p>Every major spirits company needs an RTD strategy. The math is simple: RTDs grew $537 million in revenue in 2025 while the rest of the spirits category lost roughly $1.3 billion. The brands that own the RTD transition will own the next decade of spirits growth.</p>
+    <ul>
+        <li><strong>Diageo's Don Julio</strong> is growing <strong>15x faster</strong> than the total U.S. spirits industry &mdash; partly driven by tequila-based RTD extensions</li>
+        <li><strong>Tito's acquired Lalo Tequila</strong> in 2025, its first-ever acquisition, signaling even vodka-dominant brands see the tequila/RTD convergence</li>
+        <li>U.S. spirits-based RTD market projected to grow at <strong>22.6% CAGR through 2030</strong></li>
+    </ul>
+
+    <h3>5.2 The Post-Tariff Export Window</h3>
+    <p>The SCOTUS ruling creates a potential reset for American spirits exports:</p>
+    <ul>
+        <li>IEEPA tariffs on imports are struck down, improving economics for Scotch, Cognac, and other import categories</li>
+        <li>If EU retaliatory tariffs are lifted in response, American whiskey regains access to a <strong>$699 million</strong> export market that grew 59% from 2021&ndash;2024</li>
+        <li>Historical precedent: after the first-term tariff suspension, American whiskey producers recaptured most lost market share</li>
+        <li>But the new 10% baseline tariff and unresolved EU/China retaliation mean planning for continued volatility</li>
+    </ul>
+
+    <h3>5.3 Premiumization Is Not Dead &mdash; It Is More Selective</h3>
+    <p>Premium and super-premium spirits now represent approximately <strong>35% of total market value</strong>, up from 26% a decade ago. The global premium spirits market is projected to reach <strong>$388.5 billion by 2034</strong> at 6.4% CAGR. But 2025's tequila data (volume barely down, revenue down 4.1%) shows premiumization has limits when economic pressure mounts.</p>
+
+    <table>
+        <thead><tr><th>Tier</th><th>2025 Status</th></tr></thead>
+        <tbody>
+            <tr><td>Value/Economy</td><td>Stable &mdash; consumers trading down into this tier</td></tr>
+            <tr><td>Standard/Premium</td><td>Softening across most categories</td></tr>
+            <tr><td>Super-Premium</td><td>Mixed &mdash; resilient in American whiskey, declining in tequila</td></tr>
+            <tr><td>Ultra-Premium</td><td>Modest growth in whiskey; broader headwinds</td></tr>
+            <tr><td>Luxury</td><td>Resilient but on-premise dependent</td></tr>
+        </tbody>
+    </table>
+
+    <h3>5.4 DTC: The Regulatory Frontier</h3>
+    <p>Direct-to-consumer spirits shipping remains the industry's largest untapped channel &mdash; and its most frustrating regulatory barrier:</p>
+    <ul>
+        <li>Only <strong>9 states + D.C.</strong> permit DTC spirits shipping (vs. ~47 for wine)</li>
+        <li><strong>84%</strong> of craft spirits drinkers want DTC access; <strong>92%</strong> would buy a brand they enjoyed via DTC</li>
+        <li><strong>New York passed DTC spirits delivery legislation</strong> in November 2024, opening one of the largest U.S. markets</li>
+        <li>Mobile commerce now drives <strong>75%</strong> of online alcohol purchases</li>
+    </ul>
+
+    <h3>5.5 M&amp;A and Consolidation</h3>
+    <p>The spirits industry saw <strong>24 major M&amp;A deals in 2025</strong> out of 51 total beverage alcohol transactions &mdash; making spirits the most active M&amp;A category. The dominant theme: large conglomerates divesting non-core assets while acquiring strategic growth brands.</p>
+
+    <table>
+        <thead><tr><th>Deal</th><th>Significance</th></tr></thead>
+        <tbody>
+            <tr><td>Diageo / Lobos 1707</td><td>Majority stake; gave up Ciroc North American rights in exchange</td></tr>
+            <tr><td>Tito's / Lalo Tequila</td><td>Tito's first-ever acquisition; vodka giant enters tequila</td></tr>
+            <tr><td>Pernod Ricard / Inverroche</td><td>Full ownership of South African gin brand</td></tr>
+        </tbody>
+    </table>
+
+    <h3>5.6 Craft Distilleries: Scale or Struggle</h3>
+    <p>The U.S. now has over <strong>3,100 distilleries</strong>, up from roughly 60 two decades ago. But craft spirits sales posted a <strong>second consecutive year of decline</strong> in 2025, and craft employment fell for the first time post-pandemic (28,628 vs. 29,373 in 2024). The craft shakeout mirrors what happened in craft beer a decade ago: consolidation, professionalization, and a growing gap between operators who build real brands and those who rely on tasting-room novelty.</p>
+</section>
+
+<!-- Section 6 -->
+<section id="outlook">
+    <h2><span class="section-num">Section 6</span>Outlook</h2>
+
+    <p>The Wine and Spirits Wholesalers of America (WSWA) forecast in November 2025 that the spirits slide is <strong>"set to continue into 2026."</strong> But within that overall softness, the outlook varies dramatically by category and strategy:</p>
+
+    <table>
+        <thead><tr><th>Category</th><th>2026 Outlook</th><th>Key Driver</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Spirits RTDs</strong></td><td><strong style="color:var(--green)">Strong growth (15%+)</strong></td><td>Structural shift from malt-based seltzers; Gen Z entry point</td></tr>
+            <tr><td>American Whiskey</td><td>Flat to slight positive</td><td>Resilient premiumization; possible export recovery post-SCOTUS</td></tr>
+            <tr><td>Tequila/Mezcal</td><td>Flat to slight positive</td><td>Agave surplus lowers value-tier prices; RTD crossover</td></tr>
+            <tr><td>Vodka</td><td>Continued softness</td><td>No clear differentiation narrative; RTD cannibalization</td></tr>
+            <tr><td>Scotch</td><td>Possible partial recovery</td><td>Reduced tariff uncertainty post-SCOTUS</td></tr>
+            <tr><td>Irish Whiskey</td><td>Continued correction</td><td>Over-expanded during 2020&ndash;2022 boom</td></tr>
+            <tr><td>Rum</td><td>Weak</td><td>Limited premiumization story</td></tr>
+            <tr><td>Brandy/Cognac</td><td>Weak</td><td>China market under 160% tariff</td></tr>
+            <tr><td>Canadian Whisky</td><td>Trade-dependent</td><td>Canada shelf situation unresolved</td></tr>
+        </tbody>
+    </table>
+
+    <h3>The Forces Shaping 2026 and Beyond</h3>
+    <table>
+        <thead><tr><th>Force</th><th>Severity</th><th>Status</th><th>Implication</th></tr></thead>
+        <tbody>
+            <tr><td>Consumer moderation</td><td><strong>High</strong></td><td>Structural, multi-generational</td><td>"Less but better" favors premium; reduces total volume</td></tr>
+            <tr><td>RTD format shift</td><td><strong>High</strong></td><td>Accelerating</td><td>Must compete on format, not just brand</td></tr>
+            <tr><td>Trade policy / tariffs</td><td><strong>High</strong></td><td>Partially relieved by SCOTUS; volatile</td><td>Short-term reprieve, long-term uncertainty</td></tr>
+            <tr><td>Cannabis competition</td><td>Moderate&ndash;High</td><td>Accelerating (16.9% CAGR)</td><td>Directly competes for same occasions and channels</td></tr>
+            <tr><td>Gen Z demographics</td><td><strong>High</strong></td><td>Structural, multi-decade</td><td>Must win on convenience, values, and experience</td></tr>
+            <tr><td>Premiumization fatigue</td><td>Moderate</td><td>Emerging (tequila as leading indicator)</td><td>Trading-down pressure on mid-premium tiers</td></tr>
+        </tbody>
+    </table>
+
+    <h3>The Bottom Line</h3>
+    <p>The U.S. spirits industry is not in crisis &mdash; it is in transition. At $36.4 billion and 42.4% market share, spirits remain the revenue leader in American beverage alcohol. But the growth model that worked from 2015 to 2023 &mdash; premiumization, premiumization, premiumization &mdash; is no longer sufficient.</p>
+    <p>The winners in 2026 and beyond will be operators who:</p>
+    <ol>
+        <li><strong>Own the RTD transition</strong> &mdash; spirits-based RTDs are growing 16.4% in a market declining 2.2%. This is not a trend; it is a structural shift in how spirits are consumed.</li>
+        <li><strong>Build for moderation</strong> &mdash; lower-ABV products, premium single-serve formats, and quality-over-quantity positioning that meets the "less but better" consumer.</li>
+        <li><strong>Defend and grow exports</strong> &mdash; use the post-SCOTUS window to rebuild relationships in the EU and Canada before trade policy shifts again.</li>
+        <li><strong>Push DTC deregulation</strong> &mdash; only 9 states allow spirits DTC shipping while 92% of craft drinkers want it. The legislative opportunity is enormous.</li>
+        <li><strong>Premiumize selectively</strong> &mdash; ultra-premium American whiskey still works; blanket premiumization across all categories does not. Read the tequila data.</li>
+        <li><strong>Take cannabis seriously</strong> &mdash; THC beverages are growing 7x faster than at-home alcohol. Ignore this at your peril.</li>
+    </ol>
+
+    <div class="callout">
+        The spirits industry's first revenue decline in over two decades is not a death sentence &mdash; it is a signal. <strong>The market is telling you what it wants: convenience, quality, moderation, and formats that fit modern life.</strong> The companies that listen will lead the next era. The ones that wait for the old model to come back will be waiting a very long time.
+    </div>
+</section>
+
+<!-- Sources -->
+<div class="sources">
+    <h3>Key Sources</h3>
+    <ul>
+        <li><a href="https://distilledspirits.org/news/annual-economic-briefing-2026/" target="_blank">DISCUS Annual Economic Briefing 2026</a></li>
+        <li><a href="https://www.thespiritsbusiness.com/2026/02/spirits-sales-fall-2-2-in-us-in-2025/" target="_blank">The Spirits Business: Spirits Sales Fall 2.2% in US in 2025 (Feb 2026)</a></li>
+        <li><a href="https://thewhiskeywash.com/whiskey-news/spirits-rtds-surge-as-u-s-spirits-sales-slip-in-2025-says-discus/" target="_blank">Whiskey Wash: Spirits RTDs Surge as Sales Slip (Feb 2026)</a></li>
+        <li><a href="https://www.bevnet.com/spirits/2026/discus-rtds-hit-3-8b-as-spirits-sales-decline-2-2-in-2025" target="_blank">BevNET: RTDs Hit $3.8B as Spirits Sales Decline (Feb 2026)</a></li>
+        <li><a href="https://www.cnbc.com/2026/02/05/tequila-canned-cocktails-top-selling-liquors-2025.html" target="_blank">CNBC: Cheaper Tequila and Canned Cocktails Top 2025 (Feb 2026)</a></li>
+        <li><a href="https://www.cnbc.com/2026/02/20/supreme-court-trump-tariffs-ruling.html" target="_blank">CNBC: Supreme Court Strikes Down Trump Tariffs (Feb 20, 2026)</a></li>
+        <li><a href="https://www.nbcnews.com/politics/supreme-court/supreme-court-strikes-trumps-tariffs-major-blow-president-rcna244827" target="_blank">NBC News: Supreme Court Strikes Tariffs (Feb 20, 2026)</a></li>
+        <li><a href="https://www.wave3.com/2026/02/21/bourbon-industry-leaders-say-supreme-court-ruling-against-trump-tariffs-provides-needed-certainty/" target="_blank">WAVE3: Bourbon Industry Leaders on SCOTUS Ruling (Feb 21, 2026)</a></li>
+        <li><a href="https://www.cnn.com/2025/04/24/business/spirits-exports-2024-discus-report" target="_blank">CNN: U.S. Spirits Exports Hit Record High in 2024</a></li>
+        <li><a href="https://www.thespiritsbusiness.com/2025/03/eu-to-slap-50-tariff-on-american-whiskey/" target="_blank">The Spirits Business: EU 50% Tariff on American Whiskey (Mar 2025)</a></li>
+        <li><a href="https://www.parkstreet.com/tracking-the-latest-updates-on-beverage-alcohol-tariffs/" target="_blank">Park Street: Tracking Beverage Alcohol Tariffs</a></li>
+        <li><a href="https://www.thedrinksbusiness.com/2026/02/us-spirits-hold-market-share-lead-as-rtd-cocktails-drive-growth/" target="_blank">Drinks Business: U.S. Spirits Hold Market Share Lead (Feb 2026)</a></li>
+        <li><a href="https://fortune.com/2025/12/13/gen-z-drinking-20-percent-less-than-millennials-alcohol-productivity/" target="_blank">Fortune: Gen Z Drinks 20% Less Than Millennials (Dec 2025)</a></li>
+        <li><a href="https://www.circana.com/post/americans-drinking-less-2025" target="_blank">Circana: Nearly Half of Americans Drinking Less in 2025</a></li>
+        <li><a href="https://nielseniq.com/global/en/insights/analysis/2026/five-consumer-trends-shaping-us-on-premise-spirit-sales/" target="_blank">NielsenIQ: Five Consumer Trends Shaping On-Premise Spirit Sales (2026)</a></li>
+        <li><a href="https://mgmagazine.com/business/retail-merchandise/alcohol-sales-slide-while-cannabis-beverages-surge/" target="_blank">MG Magazine: Alcohol Sales Slide While Cannabis Beverages Surge</a></li>
+        <li><a href="https://americancraftspirits.org/craft-spirits-sales-see-second-year-of-industry-decline/" target="_blank">ACSA: Craft Spirits Sales See Second Year of Decline</a></li>
+        <li><a href="https://americancraftspirits.org/strong-demand-persists-for-direct-to-consumer-shipping-of-craft-spirits/" target="_blank">ACSA: Strong Demand for DTC Shipping of Craft Spirits</a></li>
+        <li><a href="https://www.parkstreet.com/alcohol-industry-mergers-acquisitions-in-2025/" target="_blank">Park Street: Alcohol Industry M&amp;A in 2025</a></li>
+        <li><a href="https://www.diageo.com/en/investors/results-reports-and-events/annual-report-2025" target="_blank">Diageo Annual Report 2025</a></li>
+        <li><a href="https://www.pernod-ricard.com/en/media/fy25-full-year-sales-and-results" target="_blank">Pernod Ricard FY25 Results</a></li>
+        <li><a href="https://bartendersbusiness.com/en/articles/insights-1/premiumization-in-the-u-s-spirits-industry-still-thriving-or-reaching-its-peak-609.htm" target="_blank">Bartenders Business: Premiumization &mdash; Thriving or Peaking?</a></li>
+        <li><a href="https://www.thespiritsbusiness.com/2025/11/wswa-spirits-slide-set-to-continue-into-2026/" target="_blank">WSWA: Spirits Slide Set to Continue into 2026 (Nov 2025)</a></li>
+        <li><a href="https://budgetmodel.wharton.upenn.edu/issues/2026/2/20/supreme-court-tariff-ruling-ieepa-revenue-and-potential-refunds" target="_blank">Penn Wharton: SCOTUS Tariff Ruling Revenue and Refunds Analysis</a></li>
+    </ul>
+</div>
+
+<footer class="footer">
+    <p>This report was prepared on February 21, 2026. Given the rapidly evolving trade policy environment, key data points &mdash; particularly tariff rates, retaliatory measures, and legal proceedings &mdash; may change materially in the weeks ahead.</p>
+</footer>
+
+<script>
+// Chart 1: Market Share Pie
+const shareCtx = document.getElementById('shareChart').getContext('2d');
+new Chart(shareCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Spirits (42.4%)', 'Beer (~42%)', 'Wine (~16%)'],
+        datasets: [{
+            data: [42.4, 42, 16],
+            backgroundColor: ['#7A4420', '#C9A84C', '#A0622D'],
+            borderWidth: 2,
+            borderColor: '#fff'
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    font: { family: 'Helvetica Neue, Arial, sans-serif', size: 13 },
+                    padding: 20
+                }
+            }
+        }
+    }
+});
+
+// Chart 2: Category Revenue Change
+const catCtx = document.getElementById('categoryChart').getContext('2d');
+new Chart(catCtx, {
+    type: 'bar',
+    data: {
+        labels: ['RTDs', 'Am. Whiskey', 'Vodka', 'Cordials', 'Tequila', 'Gin', 'Canadian', 'Scotch', 'Irish', 'Rum', 'Brandy'],
+        datasets: [{
+            label: '2025 Revenue Change (%)',
+            data: [16.4, -0.9, -3.0, -3.2, -4.1, -4.3, -6.2, -6.2, -7.2, -8.0, -10.4],
+            backgroundColor: function(context) {
+                return context.parsed.y >= 0 ? '#2d8a4e' : '#c0392b';
+            },
+            borderRadius: 6,
+            barPercentage: 0.8,
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 1.5,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        let val = context.parsed.y;
+                        return (val > 0 ? '+' : '') + val + '%';
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                min: -15,
+                max: 20,
+                ticks: {
+                    callback: function(value) { return (value > 0 ? '+' : '') + value + '%'; },
+                    font: { family: 'Helvetica Neue, Arial, sans-serif', size: 11 },
+                    stepSize: 5
+                },
+                grid: {
+                    color: function(context) {
+                        if (context.tick.value === 0) return '#999';
+                        return '#eee';
+                    },
+                    lineWidth: function(context) {
+                        if (context.tick.value === 0) return 2;
+                        return 1;
+                    }
+                }
+            },
+            x: {
+                ticks: {
+                    font: { family: 'Helvetica Neue, Arial, sans-serif', size: 11 },
+                    maxRotation: 45,
+                    minRotation: 45
+                },
+                grid: { display: false }
+            }
+        }
+    }
+});
+
+// Chart 3: RTD Volume Growth
+const rtdCtx = document.getElementById('rtdChart').getContext('2d');
+new Chart(rtdCtx, {
+    type: 'line',
+    data: {
+        labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
+        datasets: [{
+            label: 'RTD Volume (M cases)',
+            data: [23.5, 35, 48, 58, 73, 85.6],
+            borderColor: '#7A4420',
+            backgroundColor: 'rgba(122, 68, 32, 0.1)',
+            fill: true,
+            tension: 0.3,
+            pointBackgroundColor: '#7A4420',
+            pointRadius: 6,
+            pointHoverRadius: 8,
+            borderWidth: 3
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 1.8,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return context.parsed.y + 'M cases';
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100,
+                ticks: {
+                    callback: function(value) { return value + 'M'; },
+                    font: { family: 'Helvetica Neue, Arial, sans-serif', size: 12 }
+                },
+                grid: { color: '#eee' }
+            },
+            x: {
+                ticks: {
+                    font: { family: 'Helvetica Neue, Arial, sans-serif', size: 13, weight: 'bold' }
+                },
+                grid: { display: false }
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>
